@@ -18,6 +18,7 @@ namespace AlgorithmsTests
                 ['b'] = 3,
                 ['c'] = 1
             };
+            
             var huffmanTree = new HuffmanCodes(alphabetFreq);
 
             string encode = huffmanTree.Encode(message);
@@ -38,23 +39,6 @@ namespace AlgorithmsTests
 
             Assert.AreEqual("111100010", encode);
             Assert.AreEqual(text, decode);
-        }
-
-        [TestMethod]
-        public void EncondeAndDecode_WithPropabilitiesTest()
-        {
-            var alphabetProbabilities = new Dictionary<char, double>()
-            {
-                ['a'] = 0.4,
-                ['b'] = 0.3,
-                ['c'] = 0.2,
-                ['d'] = 0.04,
-                ['e'] = 0.03,
-                ['f'] = 0.015,
-                ['g'] = 0.015
-            };
-            var huffmanTree = new HuffmanCodes(alphabetProbabilities);
-            var codeTable = huffmanTree.CodeTable;
         }
     }
 }

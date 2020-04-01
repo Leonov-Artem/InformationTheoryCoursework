@@ -17,17 +17,22 @@ namespace Algorithms.Huffman
 
         public Dictionary<char, string> CodeTable { get; private set; }
 
-        public HuffmanCodes(string text)
+        private HuffmanCodes(string text, Dictionary<char, double> alphabetFrequencies)
         {
-            _text = text;
-            Dictionary<char, double> alphabetFrequencies = ComputeFrequencies(text);
-            FieldsInitialize(alphabetFrequencies);
+            if (text != null)
+            {
+                _text = text;
+                FieldsInitialize(ComputeFrequencies(text));
+            }
+            else if (alphabetFrequencies != null)
+                FieldsInitialize(alphabetFrequencies);
         }
 
+        public HuffmanCodes(string text) 
+            : this(text, null) { }
+
         public HuffmanCodes(Dictionary<char, double> alphabetFrequencies)
-        {
-            FieldsInitialize(alphabetFrequencies);
-        }
+            : this(null, alphabetFrequencies) { }
 
         public string Encode(string text)
         {
@@ -39,7 +44,12 @@ namespace Algorithms.Huffman
         }
 
         public string Encode()
-            => Encode(_text);
+        {
+            if (_text != null)
+                return Encode(_text);
+            else
+                throw new Exception("Текст не был задан!");
+        }
 
         public string Decode(string huffmanCode)
         {
@@ -64,6 +74,8 @@ namespace Algorithms.Huffman
 
             return decode.ToString();
         }
+
+        #region private methods
 
         private void FieldsInitialize(Dictionary<char, double> alphabetFrequencies)
         {
@@ -138,5 +150,7 @@ namespace Algorithms.Huffman
                 RightChild = taken[RIGHT_NODE]
             };
         }
+
+        #endregion
     }
 }
