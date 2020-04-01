@@ -1,6 +1,6 @@
 ﻿namespace Algorithms.Huffman
 {
-    class Node
+    public class Node
     {
         public double Frequency { get; set; }
         public char Symbol { get; set; }

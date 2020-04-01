@@ -5,33 +5,40 @@ using System.Text;
 
 namespace Algorithms.Huffman
 {
-    public class HuffmanCodes
+    public class HuffmanCode
     {
         const char LEFT_BIT_SYMBOL = '0';
         const char RIGHT_BIT_SYMBOL = '1';
         readonly int LEFT_NODE = 0;
         readonly int RIGHT_NODE = 1;
 
-        Node _treeRoot;
         string _text;
+
+        public Dictionary<char, int> Frequencies { get; private set; }
+
+        public Node HuffmanTree { get; private set; }
 
         public Dictionary<char, string> CodeTable { get; private set; }
 
-        private HuffmanCodes(string text, Dictionary<char, double> alphabetFrequencies)
+        private HuffmanCode(string text, Dictionary<char, int> alphabetFrequencies)
         {
             if (text != null)
             {
                 _text = text;
-                FieldsInitialize(ComputeFrequencies(text));
+                Frequencies = ComputeFrequencies(text);
+                FieldsInitialize(Frequencies);
             }
             else if (alphabetFrequencies != null)
-                FieldsInitialize(alphabetFrequencies);
+            {
+                Frequencies = alphabetFrequencies;
+                FieldsInitialize(Frequencies);
+            }
         }
 
-        public HuffmanCodes(string text) 
+        public HuffmanCode(string text) 
             : this(text, null) { }
 
-        public HuffmanCodes(Dictionary<char, double> alphabetFrequencies)
+        public HuffmanCode(Dictionary<char, int> alphabetFrequencies)
             : this(null, alphabetFrequencies) { }
 
         public string Encode(string text)
@@ -53,7 +60,7 @@ namespace Algorithms.Huffman
 
         public string Decode(string huffmanCode)
         {
-            var currentNode = _treeRoot;
+            var currentNode = HuffmanTree;
             StringBuilder decode = new StringBuilder();
 
             foreach (var bit in huffmanCode)
@@ -68,7 +75,7 @@ namespace Algorithms.Huffman
                 if (currentNode.IsLeaf)
                 {
                     decode.Append(currentNode.Symbol);
-                    currentNode = _treeRoot;
+                    currentNode = HuffmanTree;
                 }
             }
 
@@ -77,16 +84,16 @@ namespace Algorithms.Huffman
 
         #region private methods
 
-        private void FieldsInitialize(Dictionary<char, double> alphabetFrequencies)
+        private void FieldsInitialize(Dictionary<char, int> alphabetFrequencies)
         {
-            _treeRoot = BuildHuffmanTree(alphabetFrequencies);
+            HuffmanTree = BuildHuffmanTree(alphabetFrequencies);
             CodeTable = new Dictionary<char, string>();
-            FillCodeTable(_treeRoot);
+            FillCodeTable(HuffmanTree);
         }
 
-        private Dictionary<char, double> ComputeFrequencies(string text)
+        private Dictionary<char, int> ComputeFrequencies(string text)
         {
-            var alphabetFrequencies = new Dictionary<char, double>();
+            var alphabetFrequencies = new Dictionary<char, int>();
             foreach(var symbol in text)
             {
                 if (alphabetFrequencies.ContainsKey(symbol))
@@ -98,7 +105,7 @@ namespace Algorithms.Huffman
             return alphabetFrequencies;
         }
 
-        private Node BuildHuffmanTree(Dictionary<char, double> alphabetFrequencies)
+        private Node BuildHuffmanTree(Dictionary<char, int> alphabetFrequencies)
         {
             List<Node> nodes = ListNodesInit(alphabetFrequencies);
 
@@ -130,7 +137,7 @@ namespace Algorithms.Huffman
             }
         }
 
-        private List<Node> ListNodesInit(Dictionary<char, double> alphabetFrequencies)
+        private List<Node> ListNodesInit(Dictionary<char, int> alphabetFrequencies)
         {
             var nodes = new List<Node>();
             foreach (var pair in alphabetFrequencies)
