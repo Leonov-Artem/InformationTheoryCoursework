@@ -20,18 +20,18 @@ namespace Algorithms.Huffman
 
         public Dictionary<char, string> CodeTable { get; private set; }
 
-        private HuffmanCode(string text, Dictionary<char, int> alphabetFrequencies)
+        private HuffmanCode(string text, Dictionary<char, int> frequencies)
         {
             if (text != null)
             {
                 _text = text;
                 Frequencies = ComputeFrequencies(text);
-                FieldsInitialize(Frequencies);
+                FieldsInitialize();
             }
-            else if (alphabetFrequencies != null)
+            else if (frequencies != null)
             {
-                Frequencies = alphabetFrequencies;
-                FieldsInitialize(Frequencies);
+                Frequencies = frequencies;
+                FieldsInitialize();
             }
         }
 
@@ -84,9 +84,9 @@ namespace Algorithms.Huffman
 
         #region private methods
 
-        private void FieldsInitialize(Dictionary<char, int> alphabetFrequencies)
+        private void FieldsInitialize()
         {
-            HuffmanTree = BuildHuffmanTree(alphabetFrequencies);
+            HuffmanTree = BuildHuffmanTree(Frequencies);
             CodeTable = new Dictionary<char, string>();
             FillCodeTable(HuffmanTree);
         }
