@@ -18,6 +18,7 @@ namespace Algorithms.Huffman
         {
             _text = text;
             _huffmanCode = new HuffmanCode(text);
+            Alphabet = _huffmanCode.CodeTable.Keys.ToArray();
             _probabilities = ToProbabilities(_huffmanCode.Frequencies);
             _huffmanTree = _huffmanCode.HuffmanTree;
             _depths = new Dictionary<char, int>();
@@ -36,12 +37,8 @@ namespace Algorithms.Huffman
         public double AverageCodingMessageLength()
         {
             double sum = 0;
-            foreach (var pair in _probabilities)
-            {
-                int depth = _depths[pair.Key];
-                double probability = pair.Value;
-                sum += depth * probability;
-            }
+            foreach (var symbol in Alphabet)
+                sum += _depths[symbol] * _probabilities[symbol];
 
             return sum;
         }

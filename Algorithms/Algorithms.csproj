@@ -41,14 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CRC\CyclicalRedundancyCheck.cs" />
     <Compile Include="Huffman\HuffmanCode.cs" />
     <Compile Include="Huffman\Node.cs" />
     <Compile Include="Huffman\TextAnalyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CRC\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="..\.editorconfig">
       <Link>.editorconfig</Link>
