@@ -10,20 +10,21 @@ namespace Algorithms.CRC
     {
         string _bitString;
 
-        public int PolyDegree { get; private set; }
+        public int GeneratingPolynomDegree { get; private set; }
 
-        public string GeneratingPoly { get; private set; }
+        public string GeneratingPolynom { get; private set; }
 
-        public CyclicalRedundancyCheck(string sourceMessage, string generatingPoly)
+        public CyclicalRedundancyCheck(string text, string polynom)
         {
-            GeneratingPoly = generatingPoly;
-            PolyDegree = generatingPoly.Length - 1;
-            _bitString = AddZerosToEnd(sourceMessage, PolyDegree);
+            GeneratingPolynom = StringConverter.GeneratingPolynomToBinary(polynom);
+            GeneratingPolynomDegree = GeneratingPolynom.Length - 1;
+            string binary = StringConverter.HexToBinary(text);
+            _bitString = AddZerosToEnd(binary, GeneratingPolynomDegree);
         }
 
         public string Compute()
         {
-            while (_bitString.Length > PolyDegree)
+            while (_bitString.Length > GeneratingPolynomDegree)
             {
                 _bitString = XOR(_bitString);
                 RemoveExtraZerosFromStart(ref _bitString);
@@ -34,12 +35,12 @@ namespace Algorithms.CRC
 
         private string XOR(string bitString)
         {
-            string strToReplace = bitString.Substring(0, GeneratingPoly.Length);
+            string strToReplace = bitString.Substring(0, GeneratingPolynom.Length);
             var xorResult = new StringBuilder();
 
-            for (int i = 0; i < GeneratingPoly.Length; i++)
+            for (int i = 0; i < GeneratingPolynom.Length; i++)
             {
-                if (bitString[i] == GeneratingPoly[i])
+                if (bitString[i] == GeneratingPolynom[i])
                     xorResult.Append('0');
                 else
                     xorResult.Append('1');
@@ -52,7 +53,7 @@ namespace Algorithms.CRC
         {
             while (bitString.StartsWith("0"))
             {
-                if (bitString.Length > PolyDegree)
+                if (bitString.Length > GeneratingPolynomDegree)
                     bitString = bitString.Remove(0, 1);
                 else
                     return;
@@ -66,16 +67,6 @@ namespace Algorithms.CRC
                 newBitStr.Append("0");
 
             return newBitStr.ToString();
-        }
-
-        private string HexToBinary(string sourceMessage)
-        {
-            throw new NotImplementedException();
-        }
-
-        private string GenPolyToBinary(string generatingPoly)
-        {
-            throw new NotImplementedException();
         }
     }
 }

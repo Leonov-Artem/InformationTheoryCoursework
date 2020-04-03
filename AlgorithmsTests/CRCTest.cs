@@ -9,18 +9,8 @@ namespace AlgorithmsTests
         [TestMethod]
         public void ComputeTest()
         {
-            string text = "1101011011";
-            string polynom = "10011";
-
-            var CRC = new CyclicalRedundancyCheck(text, polynom);
-            Assert.AreEqual("1110", CRC.Compute());
-        }
-
-        [TestMethod]
-        public void ComputeTest2()
-        {
-            string text = "10001001010101101001111001001010";
-            string polynom = "110001101";
+            string text = "89 56 9E 4A";
+            string polynom = "x^8 + x^7 + x^3 + x^2 + 1";
 
             var CRC = new CyclicalRedundancyCheck(text, polynom);
             Assert.AreEqual("01000010", CRC.Compute());

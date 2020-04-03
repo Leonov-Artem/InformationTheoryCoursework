@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CRC\CyclicalRedundancyCheck.cs" />
+    <Compile Include="CRC\StringConverter.cs" />
     <Compile Include="Huffman\HuffmanCode.cs" />
     <Compile Include="Huffman\Node.cs" />
     <Compile Include="Huffman\TextAnalyzer.cs" />
