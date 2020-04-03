@@ -26,21 +26,21 @@ namespace Algorithms.CRC
         {
             while (_bitString.Length > GeneratingPolynomDegree)
             {
-                _bitString = XOR(_bitString);
+                _bitString = XOR(_bitString, GeneratingPolynom);
                 RemoveExtraZerosFromStart(ref _bitString);
             }
 
             return _bitString;
         }
 
-        private string XOR(string bitString)
+        private string XOR(string bitString, string generatingPolynom)
         {
-            string strToReplace = bitString.Substring(0, GeneratingPolynom.Length);
+            string strToReplace = bitString.Substring(0, generatingPolynom.Length);
             var xorResult = new StringBuilder();
 
-            for (int i = 0; i < GeneratingPolynom.Length; i++)
+            for (int i = 0; i < generatingPolynom.Length; i++)
             {
-                if (bitString[i] == GeneratingPolynom[i])
+                if (bitString[i] == generatingPolynom[i])
                     xorResult.Append('0');
                 else
                     xorResult.Append('1');

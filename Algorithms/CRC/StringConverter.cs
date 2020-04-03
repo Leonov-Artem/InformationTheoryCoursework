@@ -23,8 +23,7 @@ namespace Algorithms.CRC
         public static string GeneratingPolynomToBinary(string polynom)
         {
             List<int> degrees = FindAllPolynomDegree(polynom);
-            int maxDegree = degrees.Max();
-            var array = new int[maxDegree + 1];
+            var array = new int[degrees.Max() + 1];
 
             foreach (int degree in degrees)
                 array[degree] = 1;
