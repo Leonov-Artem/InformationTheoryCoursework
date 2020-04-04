@@ -26,35 +26,35 @@ namespace Algorithms.CRC
         {
             while (_bitString.Length > GeneratingPolynomDegree)
             {
-                _bitString = XOR(_bitString, GeneratingPolynom);
-                RemoveExtraZerosFromStart(ref _bitString);
+                BitStringXORgenPoly();
+                RemoveExtraZerosFromBitStringStart();
             }
 
             return _bitString;
         }
 
-        private string XOR(string bitString, string generatingPolynom)
+        private void BitStringXORgenPoly()
         {
-            string strToReplace = bitString.Substring(0, generatingPolynom.Length);
+            string strToReplace = _bitString.Substring(0, GeneratingPolynom.Length);
             var xorResult = new StringBuilder();
 
-            for (int i = 0; i < generatingPolynom.Length; i++)
+            for (int i = 0; i < GeneratingPolynom.Length; i++)
             {
-                if (bitString[i] == generatingPolynom[i])
+                if (_bitString[i] == GeneratingPolynom[i])
                     xorResult.Append('0');
                 else
                     xorResult.Append('1');
             }
 
-            return bitString.Replace(strToReplace, xorResult.ToString());
+            _bitString = _bitString.Replace(strToReplace, xorResult.ToString());
         }
 
-        private void RemoveExtraZerosFromStart(ref string bitString)
+        private void RemoveExtraZerosFromBitStringStart()
         {
-            while (bitString.StartsWith("0"))
+            while (_bitString.StartsWith("0"))
             {
-                if (bitString.Length > GeneratingPolynomDegree)
-                    bitString = bitString.Remove(0, 1);
+                if (_bitString.Length > GeneratingPolynomDegree)
+                    _bitString = _bitString.Remove(0, 1);
                 else
                     return;
             }
