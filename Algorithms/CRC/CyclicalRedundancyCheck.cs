@@ -10,16 +10,31 @@ namespace Algorithms.CRC
     {
         string _bitString;
 
+        public string BinaryText { get; private set; }
+
         public int GeneratingPolynomDegree { get; private set; }
 
         public string GeneratingPolynom { get; private set; }
+
+        public CyclicalRedundancyCheck()
+        {
+
+        }
 
         public CyclicalRedundancyCheck(string text, string polynom)
         {
             GeneratingPolynom = StringConverter.GeneratingPolynomToBinary(polynom);
             GeneratingPolynomDegree = GeneratingPolynom.Length - 1;
-            string binary = StringConverter.HexToBinary(text);
-            _bitString = AddZerosToEnd(binary, GeneratingPolynomDegree);
+            BinaryText = StringConverter.HexToBinary(text);
+            _bitString = AddZerosToEnd(BinaryText, GeneratingPolynomDegree);
+        }
+
+        public string CheckMessageIntegrity(string textWithCRC, string polynom)
+        {
+            _bitString = BinaryText = textWithCRC;
+            GeneratingPolynom = polynom;
+            GeneratingPolynomDegree = GeneratingPolynom.Length - 1;
+            return Compute();
         }
 
         public string Compute()
