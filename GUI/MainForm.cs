@@ -128,6 +128,10 @@ namespace GUI
                 _huffman = new HuffmanCode(TextForHuffamnCoding);
                 FillTable(_huffman.Frequencies, _huffman.CodeTable);
                 Encode = _huffman.Encode();
+
+                var textAnalyzer = new TextAnalyzer(TextForHuffamnCoding);
+                entropyLabel.Text = Round(textAnalyzer.ShannonEntropy());
+                averageLengthLabel.Text = Round(textAnalyzer.AverageCodingMessageLength());
             }
             else
                 MessageBox.Show(INPUT_ALL_DATA_MESSAGE, ERROR_NOTIFICATION);
@@ -202,5 +206,8 @@ namespace GUI
                 }
             }
         }
+
+        private string Round(double value)
+            => Math.Round(value, 2).ToString();
     }
 }

@@ -29,10 +29,15 @@
         private void InitializeComponent()
         {
             this.huffmanGroupBox = new System.Windows.Forms.GroupBox();
+            this.decodeTextBox = new System.Windows.Forms.TextBox();
+            this.decodeButton = new System.Windows.Forms.Button();
             this.encodeButton = new System.Windows.Forms.Button();
             this.encodedTextBox = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.codesDataGridView = new System.Windows.Forms.DataGridView();
+            this.SymbolColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FrequencyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HuffmanCodeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label11 = new System.Windows.Forms.Label();
             this.sourceTextBox = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -59,11 +64,10 @@
             this.bitGenPolyTextBox = new System.Windows.Forms.TextBox();
             this.bitStringTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.SymbolColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FrequencyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HuffmanCodeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.decodeButton = new System.Windows.Forms.Button();
-            this.decodeTextBox = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.entropyLabel = new System.Windows.Forms.Label();
+            this.averageLengthLabel = new System.Windows.Forms.Label();
             this.huffmanGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.codesDataGridView)).BeginInit();
             this.CRCgroupBox.SuspendLayout();
@@ -72,7 +76,11 @@
             // 
             // huffmanGroupBox
             // 
+            this.huffmanGroupBox.Controls.Add(this.averageLengthLabel);
+            this.huffmanGroupBox.Controls.Add(this.entropyLabel);
+            this.huffmanGroupBox.Controls.Add(this.label13);
             this.huffmanGroupBox.Controls.Add(this.decodeTextBox);
+            this.huffmanGroupBox.Controls.Add(this.label14);
             this.huffmanGroupBox.Controls.Add(this.decodeButton);
             this.huffmanGroupBox.Controls.Add(this.encodeButton);
             this.huffmanGroupBox.Controls.Add(this.encodedTextBox);
@@ -83,14 +91,33 @@
             this.huffmanGroupBox.Controls.Add(this.label10);
             this.huffmanGroupBox.Location = new System.Drawing.Point(13, 13);
             this.huffmanGroupBox.Name = "huffmanGroupBox";
-            this.huffmanGroupBox.Size = new System.Drawing.Size(311, 594);
+            this.huffmanGroupBox.Size = new System.Drawing.Size(311, 595);
             this.huffmanGroupBox.TabIndex = 0;
             this.huffmanGroupBox.TabStop = false;
             this.huffmanGroupBox.Text = "Код Хаффмана";
             // 
+            // decodeTextBox
+            // 
+            this.decodeTextBox.Location = new System.Drawing.Point(4, 544);
+            this.decodeTextBox.Multiline = true;
+            this.decodeTextBox.Name = "decodeTextBox";
+            this.decodeTextBox.ReadOnly = true;
+            this.decodeTextBox.Size = new System.Drawing.Size(295, 46);
+            this.decodeTextBox.TabIndex = 7;
+            // 
+            // decodeButton
+            // 
+            this.decodeButton.Location = new System.Drawing.Point(2, 494);
+            this.decodeButton.Name = "decodeButton";
+            this.decodeButton.Size = new System.Drawing.Size(304, 36);
+            this.decodeButton.TabIndex = 6;
+            this.decodeButton.Text = "Декодировать текст";
+            this.decodeButton.UseVisualStyleBackColor = true;
+            this.decodeButton.Click += new System.EventHandler(this.DecodeButton_Click);
+            // 
             // encodeButton
             // 
-            this.encodeButton.Location = new System.Drawing.Point(10, 134);
+            this.encodeButton.Location = new System.Drawing.Point(10, 108);
             this.encodeButton.Name = "encodeButton";
             this.encodeButton.Size = new System.Drawing.Size(295, 36);
             this.encodeButton.TabIndex = 2;
@@ -100,7 +127,7 @@
             // 
             // encodedTextBox
             // 
-            this.encodedTextBox.Location = new System.Drawing.Point(3, 378);
+            this.encodedTextBox.Location = new System.Drawing.Point(4, 410);
             this.encodedTextBox.Multiline = true;
             this.encodedTextBox.Name = "encodedTextBox";
             this.encodedTextBox.ReadOnly = true;
@@ -110,7 +137,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(4, 352);
+            this.label12.Location = new System.Drawing.Point(5, 384);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(128, 13);
             this.label12.TabIndex = 4;
@@ -125,17 +152,41 @@
             this.SymbolColumn,
             this.FrequencyColumn,
             this.HuffmanCodeColumn});
-            this.codesDataGridView.Location = new System.Drawing.Point(3, 189);
+            this.codesDataGridView.Location = new System.Drawing.Point(1, 196);
             this.codesDataGridView.Name = "codesDataGridView";
             this.codesDataGridView.ReadOnly = true;
             this.codesDataGridView.RowHeadersWidth = 47;
             this.codesDataGridView.Size = new System.Drawing.Size(302, 150);
             this.codesDataGridView.TabIndex = 3;
             // 
+            // SymbolColumn
+            // 
+            this.SymbolColumn.HeaderText = "Символ";
+            this.SymbolColumn.MinimumWidth = 6;
+            this.SymbolColumn.Name = "SymbolColumn";
+            this.SymbolColumn.ReadOnly = true;
+            this.SymbolColumn.Width = 50;
+            // 
+            // FrequencyColumn
+            // 
+            this.FrequencyColumn.HeaderText = "Частота";
+            this.FrequencyColumn.MinimumWidth = 6;
+            this.FrequencyColumn.Name = "FrequencyColumn";
+            this.FrequencyColumn.ReadOnly = true;
+            this.FrequencyColumn.Width = 55;
+            // 
+            // HuffmanCodeColumn
+            // 
+            this.HuffmanCodeColumn.HeaderText = "Код Хаффмана";
+            this.HuffmanCodeColumn.MinimumWidth = 6;
+            this.HuffmanCodeColumn.Name = "HuffmanCodeColumn";
+            this.HuffmanCodeColumn.ReadOnly = true;
+            this.HuffmanCodeColumn.Width = 115;
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(7, 173);
+            this.label11.Location = new System.Drawing.Point(5, 180);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(221, 13);
             this.label11.TabIndex = 2;
@@ -146,7 +197,7 @@
             this.sourceTextBox.Location = new System.Drawing.Point(10, 47);
             this.sourceTextBox.Multiline = true;
             this.sourceTextBox.Name = "sourceTextBox";
-            this.sourceTextBox.Size = new System.Drawing.Size(295, 74);
+            this.sourceTextBox.Size = new System.Drawing.Size(295, 46);
             this.sourceTextBox.TabIndex = 1;
             // 
             // label10
@@ -378,54 +429,47 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Последовательность (в двоичной системе):";
             // 
-            // SymbolColumn
+            // label13
             // 
-            this.SymbolColumn.HeaderText = "Символ";
-            this.SymbolColumn.MinimumWidth = 6;
-            this.SymbolColumn.Name = "SymbolColumn";
-            this.SymbolColumn.ReadOnly = true;
-            this.SymbolColumn.Width = 50;
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(8, 154);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(95, 13);
+            this.label13.TabIndex = 8;
+            this.label13.Text = "Энтропия текста:";
             // 
-            // FrequencyColumn
+            // label14
             // 
-            this.FrequencyColumn.HeaderText = "Частота";
-            this.FrequencyColumn.MinimumWidth = 6;
-            this.FrequencyColumn.Name = "FrequencyColumn";
-            this.FrequencyColumn.ReadOnly = true;
-            this.FrequencyColumn.Width = 55;
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 364);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(218, 13);
+            this.label14.TabIndex = 9;
+            this.label14.Text = "Средняя длина кодирующего сообщения:";
             // 
-            // HuffmanCodeColumn
+            // entropyLabel
             // 
-            this.HuffmanCodeColumn.HeaderText = "Код Хаффмана";
-            this.HuffmanCodeColumn.MinimumWidth = 6;
-            this.HuffmanCodeColumn.Name = "HuffmanCodeColumn";
-            this.HuffmanCodeColumn.ReadOnly = true;
-            this.HuffmanCodeColumn.Width = 115;
+            this.entropyLabel.AutoSize = true;
+            this.entropyLabel.Location = new System.Drawing.Point(109, 154);
+            this.entropyLabel.Name = "entropyLabel";
+            this.entropyLabel.Size = new System.Drawing.Size(13, 13);
+            this.entropyLabel.TabIndex = 10;
+            this.entropyLabel.Text = "0";
             // 
-            // decodeButton
+            // averageLengthLabel
             // 
-            this.decodeButton.Location = new System.Drawing.Point(1, 462);
-            this.decodeButton.Name = "decodeButton";
-            this.decodeButton.Size = new System.Drawing.Size(304, 36);
-            this.decodeButton.TabIndex = 6;
-            this.decodeButton.Text = "Декодировать текст";
-            this.decodeButton.UseVisualStyleBackColor = true;
-            this.decodeButton.Click += new System.EventHandler(this.DecodeButton_Click);
-            // 
-            // decodeTextBox
-            // 
-            this.decodeTextBox.Location = new System.Drawing.Point(3, 512);
-            this.decodeTextBox.Multiline = true;
-            this.decodeTextBox.Name = "decodeTextBox";
-            this.decodeTextBox.ReadOnly = true;
-            this.decodeTextBox.Size = new System.Drawing.Size(302, 74);
-            this.decodeTextBox.TabIndex = 7;
+            this.averageLengthLabel.AutoSize = true;
+            this.averageLengthLabel.Location = new System.Drawing.Point(232, 364);
+            this.averageLengthLabel.Name = "averageLengthLabel";
+            this.averageLengthLabel.Size = new System.Drawing.Size(13, 13);
+            this.averageLengthLabel.TabIndex = 11;
+            this.averageLengthLabel.Text = "0";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(971, 614);
+            this.ClientSize = new System.Drawing.Size(971, 611);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.CRCgroupBox);
             this.Controls.Add(this.huffmanGroupBox);
@@ -482,6 +526,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn HuffmanCodeColumn;
         private System.Windows.Forms.Button decodeButton;
         private System.Windows.Forms.TextBox decodeTextBox;
+        private System.Windows.Forms.Label averageLengthLabel;
+        private System.Windows.Forms.Label entropyLabel;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
     }
 }
 

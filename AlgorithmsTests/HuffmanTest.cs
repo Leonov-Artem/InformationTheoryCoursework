@@ -52,7 +52,6 @@ namespace AlgorithmsTests
             string encode = huffmanTree.Encode(text);
             string decode = huffmanTree.Decode(encode);
 
-            //Assert.AreEqual("111100010", encode);
             Assert.AreEqual(text, decode);
         }
     }
