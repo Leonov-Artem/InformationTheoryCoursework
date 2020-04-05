@@ -14,8 +14,10 @@ namespace GUI
 {
     public partial class MainForm : Form
     {
+        const string TEXT_FOR_HUFFMAN_CODING = "often this information is the individual identification";
         const string SOURCE_HEX_MESSAGE = "89 56 9E 4A";
         const string SOURCE_GEN_POLYNOM = "x^8 + x^7 + x^3 + x^2 + 1";
+        const string INPUT_ALL_DATA_MESSAGE = "Введите все необходимые данные!";
         const string ERROR_NOTIFICATION = "Ошибка";
 
         CyclicalRedundancyCheck _crc;
@@ -24,8 +26,21 @@ namespace GUI
         {
             InitializeComponent();
 
+            TextForHuffamnCoding = TEXT_FOR_HUFFMAN_CODING;
             HexMessage = SOURCE_HEX_MESSAGE;
             GeneratingPolynom = SOURCE_GEN_POLYNOM;
+        }
+
+        string TextForHuffamnCoding
+        {
+            get => sourceTextBox.Text;
+            set => sourceTextBox.Text = value;
+        }
+
+        string Encode
+        {
+            get => encodedTextBox.Text;
+            set => encodedTextBox.Text = value;
         }
 
         string HexMessage
@@ -58,6 +73,11 @@ namespace GUI
             set => CrcTextBox.Text = value;
         }
 
+        bool HuffmanFielsNotEmpty
+        {
+            get => TextForHuffamnCoding != "";
+        }
+
         bool CrcFieldsNotEmpty
         {
             get => HexMessage != "" && GeneratingPolynom != "";
@@ -77,6 +97,18 @@ namespace GUI
                    BitGeneratingPolynom != "";
         }
 
+        private void EncodeButton_Click(object sender, EventArgs e)
+        {
+            if (HuffmanFielsNotEmpty)
+            {
+                var huffman = new HuffmanCode(TextForHuffamnCoding);
+                FillTable(huffman.Frequencies, huffman.CodeTable);
+                Encode = huffman.Encode();
+            }
+            else
+                MessageBox.Show(INPUT_ALL_DATA_MESSAGE, ERROR_NOTIFICATION);
+        }
+
         private void ComputeCRCButton_Click(object sender, EventArgs e)
         {
             if (CrcFieldsNotEmpty)
@@ -87,7 +119,7 @@ namespace GUI
                 crcResultLabel.Text = _crc.Compute();
             }
             else
-                MessageBox.Show("Введите все необходимые данные!", ERROR_NOTIFICATION);
+                MessageBox.Show(INPUT_ALL_DATA_MESSAGE, ERROR_NOTIFICATION);
         }
 
         private void CopyDataButton_Click(object sender, EventArgs e)
@@ -111,7 +143,20 @@ namespace GUI
                 remainderLabel.Text = res;
             }
             else
-                MessageBox.Show("Введите все необходимые данные!", ERROR_NOTIFICATION);
+                MessageBox.Show(INPUT_ALL_DATA_MESSAGE, ERROR_NOTIFICATION);
+        }
+
+        private void FillTable(Dictionary<char, int> frequencies, Dictionary<char, string> codeTable)
+        {
+            codesDataGridView.RowCount = frequencies.Count;
+            int rowIndex = 0;
+            foreach(var pair in frequencies.OrderByDescending(x => x.Value))
+            {
+                codesDataGridView.Rows[rowIndex].Cells[0].Value = pair.Key;
+                codesDataGridView.Rows[rowIndex].Cells[1].Value = pair.Value;
+                codesDataGridView.Rows[rowIndex].Cells[2].Value = codeTable[pair.Key];
+                rowIndex++;
+            }
         }
     }
 }

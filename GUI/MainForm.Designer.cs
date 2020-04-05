@@ -52,15 +52,34 @@
             this.bitGenPolyTextBox = new System.Windows.Forms.TextBox();
             this.bitStringTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.sourceTextBox = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.codesDataGridView = new System.Windows.Forms.DataGridView();
+            this.label12 = new System.Windows.Forms.Label();
+            this.encodedTextBox = new System.Windows.Forms.TextBox();
+            this.SymbolColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FrequencyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HuffmanCodeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.encodeButton = new System.Windows.Forms.Button();
+            this.huffmanGroupBox.SuspendLayout();
             this.CRCgroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.codesDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // huffmanGroupBox
             // 
+            this.huffmanGroupBox.Controls.Add(this.encodeButton);
+            this.huffmanGroupBox.Controls.Add(this.encodedTextBox);
+            this.huffmanGroupBox.Controls.Add(this.label12);
+            this.huffmanGroupBox.Controls.Add(this.codesDataGridView);
+            this.huffmanGroupBox.Controls.Add(this.label11);
+            this.huffmanGroupBox.Controls.Add(this.sourceTextBox);
+            this.huffmanGroupBox.Controls.Add(this.label10);
             this.huffmanGroupBox.Location = new System.Drawing.Point(13, 13);
             this.huffmanGroupBox.Name = "huffmanGroupBox";
-            this.huffmanGroupBox.Size = new System.Drawing.Size(329, 338);
+            this.huffmanGroupBox.Size = new System.Drawing.Size(311, 458);
             this.huffmanGroupBox.TabIndex = 0;
             this.huffmanGroupBox.TabStop = false;
             this.huffmanGroupBox.Text = "Код Хаффмана";
@@ -78,9 +97,9 @@
             this.CRCgroupBox.Controls.Add(this.hexMessageTextBox);
             this.CRCgroupBox.Controls.Add(this.label2);
             this.CRCgroupBox.Controls.Add(this.label1);
-            this.CRCgroupBox.Location = new System.Drawing.Point(348, 13);
+            this.CRCgroupBox.Location = new System.Drawing.Point(342, 13);
             this.CRCgroupBox.Name = "CRCgroupBox";
-            this.CRCgroupBox.Size = new System.Drawing.Size(298, 425);
+            this.CRCgroupBox.Size = new System.Drawing.Size(298, 458);
             this.CRCgroupBox.TabIndex = 1;
             this.CRCgroupBox.TabStop = false;
             this.CRCgroupBox.Text = "CRC - код";
@@ -195,7 +214,7 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Location = new System.Drawing.Point(663, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(298, 420);
+            this.groupBox1.Size = new System.Drawing.Size(298, 458);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Контрольная сумма";
@@ -222,7 +241,7 @@
             this.computeRemainderButton.Location = new System.Drawing.Point(10, 267);
             this.computeRemainderButton.Name = "computeRemainderButton";
             this.computeRemainderButton.Size = new System.Drawing.Size(282, 36);
-            this.computeRemainderButton.TabIndex = 7;
+            this.computeRemainderButton.TabIndex = 5;
             this.computeRemainderButton.Text = "Вычислить остаток";
             this.computeRemainderButton.UseVisualStyleBackColor = true;
             this.computeRemainderButton.Click += new System.EventHandler(this.ComputeRemainderButton_Click);
@@ -232,7 +251,7 @@
             this.CrcTextBox.Location = new System.Drawing.Point(10, 173);
             this.CrcTextBox.Name = "CrcTextBox";
             this.CrcTextBox.Size = new System.Drawing.Size(282, 20);
-            this.CrcTextBox.TabIndex = 6;
+            this.CrcTextBox.TabIndex = 3;
             // 
             // label8
             // 
@@ -285,11 +304,105 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Последовательность (в двоичной системе):";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(7, 24);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(197, 13);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Текст, который нужно закодировать:";
+            // 
+            // sourceTextBox
+            // 
+            this.sourceTextBox.Location = new System.Drawing.Point(10, 47);
+            this.sourceTextBox.Multiline = true;
+            this.sourceTextBox.Name = "sourceTextBox";
+            this.sourceTextBox.Size = new System.Drawing.Size(295, 74);
+            this.sourceTextBox.TabIndex = 1;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(7, 173);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(221, 13);
+            this.label11.TabIndex = 2;
+            this.label11.Text = "Кодовая таблица, вычисленная по тексту:";
+            // 
+            // codesDataGridView
+            // 
+            this.codesDataGridView.AllowUserToAddRows = false;
+            this.codesDataGridView.AllowUserToDeleteRows = false;
+            this.codesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.codesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SymbolColumn,
+            this.FrequencyColumn,
+            this.HuffmanCodeColumn});
+            this.codesDataGridView.Location = new System.Drawing.Point(3, 189);
+            this.codesDataGridView.Name = "codesDataGridView";
+            this.codesDataGridView.ReadOnly = true;
+            this.codesDataGridView.RowHeadersWidth = 47;
+            this.codesDataGridView.Size = new System.Drawing.Size(302, 150);
+            this.codesDataGridView.TabIndex = 3;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(4, 352);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(128, 13);
+            this.label12.TabIndex = 4;
+            this.label12.Text = "Закодированный текст:";
+            // 
+            // encodedTextBox
+            // 
+            this.encodedTextBox.Location = new System.Drawing.Point(3, 378);
+            this.encodedTextBox.Multiline = true;
+            this.encodedTextBox.Name = "encodedTextBox";
+            this.encodedTextBox.ReadOnly = true;
+            this.encodedTextBox.Size = new System.Drawing.Size(302, 74);
+            this.encodedTextBox.TabIndex = 5;
+            // 
+            // SymbolColumn
+            // 
+            this.SymbolColumn.HeaderText = "Символ";
+            this.SymbolColumn.MinimumWidth = 6;
+            this.SymbolColumn.Name = "SymbolColumn";
+            this.SymbolColumn.ReadOnly = true;
+            this.SymbolColumn.Width = 50;
+            // 
+            // FrequencyColumn
+            // 
+            this.FrequencyColumn.HeaderText = "Частота";
+            this.FrequencyColumn.MinimumWidth = 6;
+            this.FrequencyColumn.Name = "FrequencyColumn";
+            this.FrequencyColumn.ReadOnly = true;
+            this.FrequencyColumn.Width = 55;
+            // 
+            // HuffmanCodeColumn
+            // 
+            this.HuffmanCodeColumn.HeaderText = "Код Хаффмана";
+            this.HuffmanCodeColumn.MinimumWidth = 6;
+            this.HuffmanCodeColumn.Name = "HuffmanCodeColumn";
+            this.HuffmanCodeColumn.ReadOnly = true;
+            this.HuffmanCodeColumn.Width = 115;
+            // 
+            // encodeButton
+            // 
+            this.encodeButton.Location = new System.Drawing.Point(10, 134);
+            this.encodeButton.Name = "encodeButton";
+            this.encodeButton.Size = new System.Drawing.Size(295, 36);
+            this.encodeButton.TabIndex = 2;
+            this.encodeButton.Text = "Выполнить кодирование";
+            this.encodeButton.UseVisualStyleBackColor = true;
+            this.encodeButton.Click += new System.EventHandler(this.EncodeButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(971, 445);
+            this.ClientSize = new System.Drawing.Size(971, 483);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.CRCgroupBox);
             this.Controls.Add(this.huffmanGroupBox);
@@ -297,10 +410,13 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Кодирование информации";
+            this.huffmanGroupBox.ResumeLayout(false);
+            this.huffmanGroupBox.PerformLayout();
             this.CRCgroupBox.ResumeLayout(false);
             this.CRCgroupBox.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.codesDataGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -331,6 +447,16 @@
         private System.Windows.Forms.Label remainderLabel;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button computeRemainderButton;
+        private System.Windows.Forms.TextBox sourceTextBox;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.DataGridView codesDataGridView;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox encodedTextBox;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SymbolColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FrequencyColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HuffmanCodeColumn;
+        private System.Windows.Forms.Button encodeButton;
     }
 }
 
