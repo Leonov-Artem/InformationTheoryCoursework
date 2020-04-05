@@ -20,6 +20,7 @@ namespace GUI
         const string INPUT_ALL_DATA_MESSAGE = "Введите все необходимые данные!";
         const string ERROR_NOTIFICATION = "Ошибка";
 
+        HuffmanCode _huffman;
         CyclicalRedundancyCheck _crc;
 
         public MainForm()
@@ -30,6 +31,8 @@ namespace GUI
             HexMessage = SOURCE_HEX_MESSAGE;
             GeneratingPolynom = SOURCE_GEN_POLYNOM;
         }
+
+        #region huffman properties
 
         string TextForHuffamnCoding
         {
@@ -43,6 +46,26 @@ namespace GUI
             set => encodedTextBox.Text = value;
         }
 
+        string Decode
+        {
+            get => decodeTextBox.Text;
+            set => decodeTextBox.Text = value;
+        }
+
+        bool HuffmanFielsNotEmpty
+        {
+            get => TextForHuffamnCoding != "";
+        }
+
+        bool EncodeFieldNotEmpty
+        {
+            get => Encode != "";
+        }
+
+        #endregion
+
+        #region CRC properties
+
         string HexMessage
         {
             get => hexMessageTextBox.Text;
@@ -54,6 +77,15 @@ namespace GUI
             get => generatingPolynomTextBox.Text;
             set => generatingPolynomTextBox.Text = value;
         }
+
+        bool CrcFieldsNotEmpty
+        {
+            get => HexMessage != "" && GeneratingPolynom != "";
+        }
+
+        #endregion
+
+        #region checksum properties
 
         string BitString
         {
@@ -73,16 +105,6 @@ namespace GUI
             set => CrcTextBox.Text = value;
         }
 
-        bool HuffmanFielsNotEmpty
-        {
-            get => TextForHuffamnCoding != "";
-        }
-
-        bool CrcFieldsNotEmpty
-        {
-            get => HexMessage != "" && GeneratingPolynom != "";
-        }
-
         bool LabelsForCopyingNotEmpty
         {
             get => bitStringLabel.Text != "0" &&
@@ -97,16 +119,26 @@ namespace GUI
                    BitGeneratingPolynom != "";
         }
 
+        #endregion
+
         private void EncodeButton_Click(object sender, EventArgs e)
         {
             if (HuffmanFielsNotEmpty)
             {
-                var huffman = new HuffmanCode(TextForHuffamnCoding);
-                FillTable(huffman.Frequencies, huffman.CodeTable);
-                Encode = huffman.Encode();
+                _huffman = new HuffmanCode(TextForHuffamnCoding);
+                FillTable(_huffman.Frequencies, _huffman.CodeTable);
+                Encode = _huffman.Encode();
             }
             else
                 MessageBox.Show(INPUT_ALL_DATA_MESSAGE, ERROR_NOTIFICATION);
+        }
+
+        private void DecodeButton_Click(object sender, EventArgs e)
+        {
+            if (EncodeFieldNotEmpty)
+                Decode = _huffman.Decode(Encode);
+            else
+                MessageBox.Show("Поле с закодированным сообщением пустое!", ERROR_NOTIFICATION);
         }
 
         private void ComputeCRCButton_Click(object sender, EventArgs e)

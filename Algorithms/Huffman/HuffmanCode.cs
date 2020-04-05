@@ -60,8 +60,8 @@ namespace Algorithms.Huffman
 
         public string Decode(string huffmanCode)
         {
-            var currentNode = HuffmanTree;
-            StringBuilder decode = new StringBuilder();
+            Node currentNode = HuffmanTree;
+            var decode = new StringBuilder();
 
             foreach (var bit in huffmanCode)
             {

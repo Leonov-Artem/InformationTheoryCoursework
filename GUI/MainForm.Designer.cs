@@ -62,6 +62,8 @@
             this.SymbolColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FrequencyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HuffmanCodeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.decodeButton = new System.Windows.Forms.Button();
+            this.decodeTextBox = new System.Windows.Forms.TextBox();
             this.huffmanGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.codesDataGridView)).BeginInit();
             this.CRCgroupBox.SuspendLayout();
@@ -70,6 +72,8 @@
             // 
             // huffmanGroupBox
             // 
+            this.huffmanGroupBox.Controls.Add(this.decodeTextBox);
+            this.huffmanGroupBox.Controls.Add(this.decodeButton);
             this.huffmanGroupBox.Controls.Add(this.encodeButton);
             this.huffmanGroupBox.Controls.Add(this.encodedTextBox);
             this.huffmanGroupBox.Controls.Add(this.label12);
@@ -79,7 +83,7 @@
             this.huffmanGroupBox.Controls.Add(this.label10);
             this.huffmanGroupBox.Location = new System.Drawing.Point(13, 13);
             this.huffmanGroupBox.Name = "huffmanGroupBox";
-            this.huffmanGroupBox.Size = new System.Drawing.Size(311, 458);
+            this.huffmanGroupBox.Size = new System.Drawing.Size(311, 594);
             this.huffmanGroupBox.TabIndex = 0;
             this.huffmanGroupBox.TabStop = false;
             this.huffmanGroupBox.Text = "Код Хаффмана";
@@ -169,7 +173,7 @@
             this.CRCgroupBox.Controls.Add(this.label1);
             this.CRCgroupBox.Location = new System.Drawing.Point(342, 13);
             this.CRCgroupBox.Name = "CRCgroupBox";
-            this.CRCgroupBox.Size = new System.Drawing.Size(298, 458);
+            this.CRCgroupBox.Size = new System.Drawing.Size(298, 380);
             this.CRCgroupBox.TabIndex = 1;
             this.CRCgroupBox.TabStop = false;
             this.CRCgroupBox.Text = "CRC - код";
@@ -188,9 +192,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(10, 324);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(132, 13);
+            this.label5.Size = new System.Drawing.Size(59, 13);
             this.label5.TabIndex = 9;
-            this.label5.Text = "Вычисленный CRC - код:";
+            this.label5.Text = "CRC - код:";
             // 
             // computeCRCButton
             // 
@@ -284,7 +288,7 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Location = new System.Drawing.Point(663, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(298, 458);
+            this.groupBox1.Size = new System.Drawing.Size(298, 380);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Контрольная сумма";
@@ -302,9 +306,9 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(10, 323);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(123, 13);
+            this.label9.Size = new System.Drawing.Size(52, 13);
             this.label9.TabIndex = 8;
-            this.label9.Text = "Вычисленный остаток:";
+            this.label9.Text = "Остаток:";
             // 
             // computeRemainderButton
             // 
@@ -398,11 +402,30 @@
             this.HuffmanCodeColumn.ReadOnly = true;
             this.HuffmanCodeColumn.Width = 115;
             // 
+            // decodeButton
+            // 
+            this.decodeButton.Location = new System.Drawing.Point(1, 462);
+            this.decodeButton.Name = "decodeButton";
+            this.decodeButton.Size = new System.Drawing.Size(304, 36);
+            this.decodeButton.TabIndex = 6;
+            this.decodeButton.Text = "Декодировать текст";
+            this.decodeButton.UseVisualStyleBackColor = true;
+            this.decodeButton.Click += new System.EventHandler(this.DecodeButton_Click);
+            // 
+            // decodeTextBox
+            // 
+            this.decodeTextBox.Location = new System.Drawing.Point(3, 512);
+            this.decodeTextBox.Multiline = true;
+            this.decodeTextBox.Name = "decodeTextBox";
+            this.decodeTextBox.ReadOnly = true;
+            this.decodeTextBox.Size = new System.Drawing.Size(302, 74);
+            this.decodeTextBox.TabIndex = 7;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(971, 483);
+            this.ClientSize = new System.Drawing.Size(971, 614);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.CRCgroupBox);
             this.Controls.Add(this.huffmanGroupBox);
@@ -457,6 +480,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SymbolColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn FrequencyColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn HuffmanCodeColumn;
+        private System.Windows.Forms.Button decodeButton;
+        private System.Windows.Forms.TextBox decodeTextBox;
     }
 }
 
