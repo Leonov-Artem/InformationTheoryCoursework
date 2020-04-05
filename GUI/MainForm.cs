@@ -148,14 +148,26 @@ namespace GUI
 
         private void FillTable(Dictionary<char, int> frequencies, Dictionary<char, string> codeTable)
         {
-            codesDataGridView.RowCount = frequencies.Count;
+            var zip = frequencies.Zip(codeTable,
+                                      (freq, code) => new
+                                      {
+                                          Symbol = freq.Key,
+                                          Frequency = freq.Value,
+                                          Code = codeTable[freq.Key]
+                                      });
+
             int rowIndex = 0;
-            foreach(var pair in frequencies.OrderByDescending(x => x.Value))
+            codesDataGridView.RowCount = frequencies.Count;
+
+            foreach (var group in zip.OrderByDescending(x => x.Frequency).GroupBy(x => x.Code.Length))
             {
-                codesDataGridView.Rows[rowIndex].Cells[0].Value = pair.Key;
-                codesDataGridView.Rows[rowIndex].Cells[1].Value = pair.Value;
-                codesDataGridView.Rows[rowIndex].Cells[2].Value = codeTable[pair.Key];
-                rowIndex++;
+                foreach (var data in group)
+                {
+                    codesDataGridView.Rows[rowIndex].Cells[0].Value = data.Symbol;
+                    codesDataGridView.Rows[rowIndex].Cells[1].Value = data.Frequency;
+                    codesDataGridView.Rows[rowIndex].Cells[2].Value = data.Code;
+                    rowIndex++;
+                }
             }
         }
     }
