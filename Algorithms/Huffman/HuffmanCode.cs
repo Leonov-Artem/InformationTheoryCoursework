@@ -107,15 +107,12 @@ namespace Algorithms.Huffman
 
         private Node BuildHuffmanTree(Dictionary<char, int> alphabetFrequencies)
         {
-            List<Node> nodes = ListNodesInit(alphabetFrequencies);
+            List<Node> nodes = ToListNodes(alphabetFrequencies);
 
             while (nodes.Count > 1)
             {
-                List<Node> orderedNodes = SortAscending(nodes);
-                List<Node> taken = orderedNodes.Take(2).ToList();
+                List<Node> taken = RemoveTwoMinNodes(nodes);
                 Node parent = CreateParentNode(taken);
-                nodes.Remove(taken[LEFT_NODE]);
-                nodes.Remove(taken[RIGHT_NODE]);
                 nodes.Add(parent);
             }
 
@@ -137,13 +134,23 @@ namespace Algorithms.Huffman
             }
         }
 
-        private List<Node> ListNodesInit(Dictionary<char, int> alphabetFrequencies)
+        private List<Node> ToListNodes(Dictionary<char, int> alphabetFrequencies)
         {
             var nodes = new List<Node>();
             foreach (var pair in alphabetFrequencies)
                 nodes.Add(new Node(pair.Key, pair.Value));
 
             return nodes;
+        }
+
+        private List<Node> RemoveTwoMinNodes(List<Node> nodes)
+        {
+            List<Node> orderedNodes = SortAscending(nodes);
+            List<Node> taken = orderedNodes.Take(2).ToList();
+            nodes.Remove(taken[LEFT_NODE]);
+            nodes.Remove(taken[RIGHT_NODE]);
+
+            return taken;
         }
 
         private List<Node> SortAscending(List<Node> nodes)

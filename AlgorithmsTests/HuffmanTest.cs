@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace AlgorithmsTests
 {
     [TestClass]
-    public class HuffmanTreeTests
+    public class HuffmanTests
     {
         [TestMethod]
         public void EncondeAndDecode_WithGivenFrequenciesTest()
